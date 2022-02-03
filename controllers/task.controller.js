@@ -22,3 +22,18 @@ module.exports.getUserTasks = async(req, res, next)=>{
     next(error)
   }
 }
+
+module.exports.updateUserTask = async(req, res, next)=>{
+  try {
+    const {body, userInstance, taskInstance} = req;
+    if(await userInstance.hasTask(taskInstance)){
+      const updatedTask = await taskInstance.update(body, {
+        returning: true
+      });
+      res.status(200).send({data: updatedTask});
+    }
+    next(new Error("task not associated with user!"));
+  } catch (error) {
+    next(error);
+  }
+}
