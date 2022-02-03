@@ -96,3 +96,19 @@ module.exports.addUserToGroup = async(req, res, next)=>{
     next(error)
   }
 }
+
+module.exports.updateGroup = async(req, res, next)=>{
+  try {
+    const {body, userInstance, groupInstance} = req;
+    if(await userInstance.hasGroup(groupInstance)){
+      const updatedGroup = await groupInstance.update(body, {
+        returning: true
+      });
+      return res.status(200).send({data: updatedGroup});
+    }
+    next(new Error("group not associated with user!"));
+  } catch (error) {
+    next(error);
+  }
+
+}
