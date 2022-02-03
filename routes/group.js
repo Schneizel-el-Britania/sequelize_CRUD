@@ -25,6 +25,7 @@ groupRouter.post('/:groupId/image', upload.single('image'), GroupController.crea
 groupRouter.post('/:groupId', GroupController.addUserToGroup);
 
 groupRouter.patch('/:userId/:groupId', checkUser, checkGroup, GroupController.updateGroup);
+groupRouter.delete('/:userId/:groupId', checkUser, checkGroup, GroupController.updateGroup);
 
 
 module.exports = groupRouter;

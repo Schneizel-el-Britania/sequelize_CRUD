@@ -112,3 +112,17 @@ module.exports.updateGroup = async(req, res, next)=>{
   }
 
 }
+
+module.exports.updateGroup = async(req, res, next)=>{
+  try {
+    const {userInstance, groupInstance} = req;
+    if(await userInstance.hasGroup(groupInstance)){
+      await groupInstance.destroy();
+      return res.redirect('/');
+    }
+    next(new Error("group not associated with user!"));
+  } catch (error) {
+    next(error);
+  }
+
+}
