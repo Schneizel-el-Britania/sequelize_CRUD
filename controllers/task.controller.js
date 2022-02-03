@@ -37,3 +37,15 @@ module.exports.updateUserTask = async(req, res, next)=>{
     next(error);
   }
 }
+module.exports.deleteUserTask = async(req, res, next)=>{
+  try {
+    const {userInstance, taskInstance} = req;
+    if(await userInstance.hasTask(taskInstance)){
+      await taskInstance.destroy();
+      return res.redirect('/');
+    }
+    next(new Error("task not associated with user!"));
+  } catch (error) {
+    next(error);
+  }
+}
