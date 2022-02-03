@@ -30,7 +30,7 @@ module.exports.updateUserTask = async(req, res, next)=>{
       const updatedTask = await taskInstance.update(body, {
         returning: true
       });
-      res.status(200).send({data: updatedTask});
+      return res.status(200).send({data: updatedTask});
     }
     next(new Error("task not associated with user!"));
   } catch (error) {
