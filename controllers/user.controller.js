@@ -73,3 +73,13 @@ module.exports.updateUserInstance = async (req, res, next) =>{
     next(error)
   }
 }
+
+module.exports.deleteUser = async (req, res, next) =>{
+  try {
+    const {userInstance} = req;
+    await userInstance.destroy();
+    return res.redirect('/');
+  } catch (error) {
+    next(error)
+  }
+}
