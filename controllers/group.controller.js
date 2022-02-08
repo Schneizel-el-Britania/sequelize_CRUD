@@ -32,6 +32,16 @@ module.exports.getAllGroups = async(req, res, next)=>{
   }
 }
 
+module.exports.getAllUsersOfGroup = async(req, res, next)=>{
+  try{
+    const {groupInstance} = req;
+    const users = await groupInstance.getUsers();
+    res.status(200).send({data: users});
+  } catch(error) {
+    next(error);
+  }
+}
+
 module.exports.getGroupsByUser = async(req, res, next)=>{
   try {
     const {params:{userId}} = req;
