@@ -23,6 +23,15 @@ module.exports.createUserGroup = async(req, res, next)=>{
   }
 }
 
+module.exports.getAllGroups = async(req, res, next)=>{
+  try{
+    const groups = await Group.findAll();
+    res.status(200).send({data: groups});
+  } catch(error) {
+    next(error);
+  }
+}
+
 module.exports.getGroupsByUser = async(req, res, next)=>{
   try {
     const {params:{userId}} = req;
